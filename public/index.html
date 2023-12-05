@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+</head>
+
+<body>
+    <div>
+        <h1>GPT Chatbot</h1>
+        <style>
+
+            .h1{
+                align-items: center;
+                justify-content: center;          
+            }
+
+
+            body {
+                font-family: 'Courier New', monospace;
+                background-color: black;
+                color: #00ff00;
+                padding: 20px;
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+                height: 100vh;
+                box-sizing: border-box;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .chat-container {
+                max-width: 600px;
+                margin: 20px auto;
+                padding: 20px;
+                background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                align-items: center;
+                justify-content: center;
+            }
+
+            .message {
+                margin-bottom: 10px;
+            }
+
+            .user-message {
+                color: #333;
+            }
+
+            .chatbot-message {
+                color: #2e5b8b;
+            }
+
+            input[type="text"] {
+                width: calc(100% - 20px);
+                padding: 10px;
+                margin: 10px 0;
+                box-sizing: border-box;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+
+            button {
+                padding: 10px;
+                background-color: #00ff00;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+        </style>
+        <div id="chat-container"></div>
+        <input type="text" id="user-input" placeholder="Digite sua mensagem...">
+        <button onclick="sendMessage()">Enviar</button>
+    </div>
+
+    <script>
+        async function sendMessage() {
+            const userInput = document.getElementById('user-input').value;
+            if (!userInput.trim()) return;
+
+            const response = await fetch('http://localhost:3000/sendMessage', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: userInput }),
+            });
+
+            const responseData = await response.json();
+
+            const chatContainer = document.getElementById('chat-container');
+            chatContainer.innerHTML += `<div><strong style="color: aqua">Você:</strong> ${userInput}</div>`;
+            chatContainer.innerHTML += `<div><strong style="color: red">Chatbot:</strong> ${responseData.response}</div>`;
+
+            document.getElementById('user-input').value = '';
+        }
+    </script>
+</body>
+
+</html>

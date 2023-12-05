@@ -23,7 +23,8 @@ jobs:
     - name: Testing Actions
       run: echo Hello, world!
 
-    - uses: 'google-github-actions/auth@v2'
+    - id: "auth"
+      uses: 'google-github-actions/auth@v2'
       with:
         credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
@@ -33,3 +34,9 @@ jobs:
         echo API_KEY=${{ secrets.API_KEY }} >> .env
         echo API_URL=${{ secrets.API_URL }} >> .env
         echo PORT=${{ secrets.PORT }} >> .env
+
+    - name: "Install dependencies"
+      run: npm install
+
+    - id: "deploy"
+      uses: "google-github-actions/deploy-appengine@v1"

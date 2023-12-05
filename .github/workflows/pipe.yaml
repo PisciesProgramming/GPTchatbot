@@ -23,7 +23,6 @@ jobs:
     - name: Testing Actions
       run: echo Hello, world!
 
-    - name: Autenticação GCP
     - uses: 'google-github-actions/auth@v2'
       with:
         credentials_json: '${{ secrets.GCP_CREDENTIALS }}'

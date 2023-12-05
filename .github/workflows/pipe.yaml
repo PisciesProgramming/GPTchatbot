@@ -26,3 +26,10 @@ jobs:
     - uses: 'google-github-actions/auth@v2'
       with:
         credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+    - name: Criando e populando .env
+      run: |
+        touch .env
+        echo API_KEY=${{ secrets.API_KEY }} >> .env
+        echo API_URL=${{ secrets.API_URL }} >> .env
+        echo PORT=${{ secrets.PORT }} >> .env

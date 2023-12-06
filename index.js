@@ -3,6 +3,7 @@ const axios = require('axios');
 const path = require('path');
 
 const app = express();
+app.set('trust proxy', true);
 const port = process.env.PORT;
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -43,5 +44,5 @@ async function getChatGPTResponse(message) {
 }
 
 app.listen(port, () => {
-    console.log(`Servidor rodando em http://localhost:${port}`);
+    console.log(`Servidor rodando`);
 });
